@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+
+# Jupyter notebooks (if any)
+.ipynb_checkpoints
+
+# Environment files
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Logs and debugging
+*.log
+*.pot
+*.pyc
+*.pkl
+*.db
+*.sqlite3
+
+# MyPy / Pylint / coverage
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Static/media files (optional, if applicable)
+staticfiles/
+media/
+uploads/
+*.csv
+
+# If using FastAPI with compiled JS frontends
+node_modules/
+*.js.map
+
+
