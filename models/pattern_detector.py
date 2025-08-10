@@ -12,6 +12,8 @@ import pandas as pd
 
 def detect_patterns(
     df: pd.DataFrame,
+    use_sample: bool = False,
+    sample_size: int = 10000,
     min_cluster_size: int = 5,
     min_samples: int = None,
     cluster_selection_epsilon: float = 0.0,
@@ -21,7 +23,7 @@ def detect_patterns(
     alpha: float = 1.0,
     algorithm: str = 'auto',
     leaf_size: int = 40,
-    n_jobs: int = None,
+    n_jobs: int = -1,
     cluster_selection_method: str = 'eom',
     allow_single_cluster: bool = False,
     store_centers: bool = None,
@@ -43,7 +45,10 @@ def detect_patterns(
         Fitted sklearn HDBSCAN model.
     """
     numerical_df = df.select_dtypes(include=['int64', 'float64'])
-
+    if use_sample and len(df) > sample_size:
+        numerical_df = df.select_dtypes(include=['int64', 'float64']).sample(sample_size, random_state=42)
+    else:
+        numerical_df = df.select_dtypes(include=['int64', 'float64'])
     clusterer = HDBSCAN(
         min_cluster_size=min_cluster_size,
         min_samples=min_samples,
