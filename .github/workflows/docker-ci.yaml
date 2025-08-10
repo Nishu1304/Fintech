@@ -1,0 +1,37 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t fintech-backend .
+
+    - name: Run Docker container
+      run: |
+        docker run -d --name fintech-test -p 8000:8000 fintech-backend
+        sleep 10
+
+    - name: Check container is running
+      run: |
+        if [ "$(docker inspect -f '{{.State.Running}}' fintech-test)" != "true" ]; then
+          echo "Container failed to start."
+          exit 1
+        fi
+
+    - name: Stop and remove container
+      run: |
+        docker stop fintech-test
+        docker rm fintech-test
